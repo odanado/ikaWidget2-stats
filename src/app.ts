@@ -1,9 +1,6 @@
-import fs from "fs";
 import Realm from "realm";
 
 import { Result } from "ikaWidget2";
-
-import { getResult } from "./utils";
 
 function filter(result: Result, ids: string[]): boolean {
   const myMemberIds = result.myMembers

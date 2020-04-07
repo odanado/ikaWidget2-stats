@@ -49,3 +49,8 @@ jspm_packages
 .yarn-integrity
 
 dist/
+
+data/
+src/generated/
+out/
+.management/

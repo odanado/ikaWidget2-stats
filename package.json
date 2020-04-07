@@ -14,6 +14,7 @@
     "jest": "^25.1.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
+    "realm-schema-to-typescript": "^0.0.4",
     "ts-jest": "^25.2.1",
     "ts-node": "^8.6.2",
     "typescript": "^3.8.3"
@@ -24,5 +25,9 @@
     "test:build": "yarn build --noEmit",
     "test:jest": "yarn jest --detectOpenHandles --forceExit",
     "test:lint": "eslint --ext .js,.ts --ignore-path .gitignore ."
+  },
+  "dependencies": {
+    "date-fns": "^2.11.1",
+    "realm": "^3.4.2"
   }
 }

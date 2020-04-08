@@ -57,6 +57,16 @@ async function main(): Promise<void> {
     return prev;
   }, {});
 
+  const stages = [
+    "チョウザメ造船",
+    "タチウオパーキング",
+    "ハコフグ倉庫",
+    "Ｂバスパーク",
+    "ガンガゼ野外音楽堂",
+    "デボン海洋博物館",
+    "海女美術大学",
+    "ムツゴ楼"
+  ];
   const rules = [
     "ガチホコバトル",
     "ガチエリア",
@@ -65,7 +75,7 @@ async function main(): Promise<void> {
     "ナワバリバトル"
   ];
   console.log(["", ...rules].join(","));
-  Object.keys(stats).forEach(stage => {
+  stages.forEach(stage => {
     const line: string[] = [stage];
     rules.forEach(rule => {
       if (!stats[stage][rule]) {
@@ -79,6 +89,45 @@ async function main(): Promise<void> {
     });
     console.log(line.join(","));
   });
+
+  stages.forEach(stage => {
+    const win = rules.reduce((prev, cur) => {
+      return prev + stats[stage][cur].win;
+    }, 0);
+    const total = rules.reduce((prev, cur) => {
+      return prev + stats[stage][cur].win + stats[stage][cur].lose;
+    }, 0);
+    console.log(stage, win, total, win / total);
+  });
+
+  rules.forEach(rule => {
+    const win = stages.reduce((prev, cur) => {
+      return prev + stats[cur][rule].win;
+    }, 0);
+    const total = stages.reduce((prev, cur) => {
+      return prev + stats[cur][rule].win + stats[cur][rule].lose;
+    }, 0);
+    console.log(rule, win, total, win / total);
+  });
+
+  const win = stages.reduce((prev, stage) => {
+    return (
+      prev +
+      rules.reduce((prev, rule) => {
+        return prev + stats[stage][rule].win;
+      }, 0)
+    );
+  }, 0);
+  const total = stages.reduce((prev, stage) => {
+    return (
+      prev +
+      rules.reduce((prev, rule) => {
+        return prev + stats[stage][rule].win + stats[stage][rule].lose;
+      }, 0)
+    );
+  }, 0);
+
+  console.log("total", win, total, win / total);
 
   db.close();
 }

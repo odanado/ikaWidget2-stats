@@ -8,6 +8,7 @@
     "outDir": "dist",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "baseUrl": ".",
     "paths": {
       "ikaWidget2": ["src/generated/ikaWidget2"]
     }

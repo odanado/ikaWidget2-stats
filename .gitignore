@@ -51,6 +51,5 @@ jspm_packages
 dist/
 
 data/
-src/generated/
 out/
 .management/

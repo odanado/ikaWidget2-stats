@@ -16,11 +16,15 @@ function filter(result: Result, ids: string[]): boolean {
 async function main(): Promise<void> {
   const db = new Realm({ path: config.path });
   const results = db.objects<Result>("Result");
-  const result = results[results.length - 20];
-  [...new Array(15).keys()].forEach((i) => {
+
+  console.log(results.length);
+  // 直近N戦目のみかたの id を知る
+  const result = results[results.length - 10];
+  [...new Array(3).keys()].forEach((i) => {
     console.log(result.myMembers[i].principalID);
     console.log(result.myMembers[i].name);
   });
+
   const ids = config.playerIds;
   const filteredResults = results.filter((result) => filter(result, ids));
 

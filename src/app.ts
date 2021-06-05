@@ -5,24 +5,24 @@ import { STAGES, RULES, config } from "./config";
 
 function filter(result: Result, ids: string[]): boolean {
   const myMemberIds = result.myMembers
-    .map(player => player.principalID)
+    .map((player) => player.principalID)
     .filter((id): id is string => {
       return !!id;
     });
 
-  return ids.every(id => myMemberIds.includes(id));
+  return ids.every((id) => myMemberIds.includes(id));
 }
 
 async function main(): Promise<void> {
   const db = new Realm({ path: config.path });
   const results = db.objects<Result>("Result");
   const result = results[results.length - 20];
-  [...new Array(15).keys()].forEach(i => {
+  [...new Array(15).keys()].forEach((i) => {
     console.log(result.myMembers[i].principalID);
     console.log(result.myMembers[i].name);
   });
   const ids = config.playerIds;
-  const filteredResults = results.filter(result => filter(result, ids));
+  const filteredResults = results.filter((result) => filter(result, ids));
 
   type Count = {
     win: number;
@@ -62,9 +62,9 @@ async function main(): Promise<void> {
   const rules = RULES;
 
   console.log(["", ...rules].join(","));
-  stages.forEach(stage => {
+  stages.forEach((stage) => {
     const line: string[] = [stage];
-    rules.forEach(rule => {
+    rules.forEach((rule) => {
       if (!stats[stage][rule]) {
         stats[stage][rule] = { win: 0, lose: 0 };
       }
@@ -77,7 +77,7 @@ async function main(): Promise<void> {
     console.log(line.join(","));
   });
 
-  stages.forEach(stage => {
+  stages.forEach((stage) => {
     const win = rules.reduce((prev, cur) => {
       return prev + stats[stage][cur].win;
     }, 0);
@@ -87,7 +87,7 @@ async function main(): Promise<void> {
     console.log(stage, win, total, win / total);
   });
 
-  rules.forEach(rule => {
+  rules.forEach((rule) => {
     const win = stages.reduce((prev, cur) => {
       return prev + stats[cur][rule].win;
     }, 0);
@@ -121,7 +121,7 @@ async function main(): Promise<void> {
 
 main();
 
-process.on("unhandledRejection", reason => {
+process.on("unhandledRejection", (reason) => {
   console.error(reason);
   process.exit(1);
 });

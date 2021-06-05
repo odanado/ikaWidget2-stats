@@ -5,7 +5,7 @@ export type Config = {
 
 export const config: Config = {
   path: "./data/stats.realm",
-  playerIds: ["584fb3fbce50cc27", "c5ffec79c3607d96", "3f17872fa875a69c"]
+  playerIds: ["584fb3fbce50cc27", "c5ffec79c3607d96", "3f17872fa875a69c"],
 };
 
 export const STAGES = [
@@ -16,12 +16,12 @@ export const STAGES = [
   "ガンガゼ野外音楽堂",
   "デボン海洋博物館",
   "海女美術大学",
-  "ムツゴ楼"
+  "ムツゴ楼",
 ];
 export const RULES = [
   "ガチホコバトル",
   "ガチエリア",
   "ガチヤグラ",
   "ガチアサリ",
-  "ナワバリバトル"
+  "ナワバリバトル",
 ];

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
-
 import { Result, Player, Gear, Weapon } from "ikaWidget2";
 import { format } from "date-fns";
 
@@ -15,7 +13,7 @@ function convertImage(image?: Image) {
   return {
     id: image.ID,
     image: image.image,
-    name: image.name
+    name: image.name,
   };
 }
 
@@ -33,11 +31,11 @@ function convertGear(gear?: Gear) {
       frequent_skill: {
         name: gear.brand?.frequentSkill?.name,
         id: gear.brand?.frequentSkill?.ID,
-        image: gear.brand?.frequentSkill?.image
-      }
+        image: gear.brand?.frequentSkill?.image,
+      },
     },
     thumbnail: "TODO",
-    rarity: 1 // TODO
+    rarity: 1, // TODO
   };
 }
 
@@ -52,14 +50,14 @@ function convertWeapon(weapon?: Weapon) {
       id: weapon.special?.ID,
       image_a: weapon.special?.imageA,
       image_b: weapon.special?.imageB,
-      name: weapon.special?.name
+      name: weapon.special?.name,
     },
     sub: {
       id: weapon.sub?.ID,
       image_a: weapon.sub?.imageA,
       image_b: weapon.sub?.imageB,
-      name: weapon.sub?.name
-    }
+      name: weapon.sub?.name,
+    },
   };
 }
 
@@ -79,30 +77,30 @@ function convertPlayer(player: Player | undefined, i: number) {
       head: convertGear(player.headGear),
       shoes_skills: {
         main: convertImage(player.shoesSkills?.main),
-        subs: player.shoesSkills?.subs.map(sub => convertImage(sub))
+        subs: player.shoesSkills?.subs.map((sub) => convertImage(sub)),
       },
       clothes_skills: {
         main: convertImage(player.clothesSkills?.main),
-        subs: player.clothesSkills?.subs.map(sub => convertImage(sub))
+        subs: player.clothesSkills?.subs.map((sub) => convertImage(sub)),
       },
       head_skills: {
         main: convertImage(player.headSkills?.main),
-        subs: player.headSkills?.subs.map(sub => convertImage(sub))
+        subs: player.headSkills?.subs.map((sub) => convertImage(sub)),
       },
       udemae: {
         name: player.udemae,
         s_plus_number: player.sPlusNumber,
-        is_x: player.udemaeIsX
+        is_x: player.udemaeIsX,
       },
       principal_id: player.principalID,
       weapon: convertWeapon(player.weapon),
       star_rank: player.starRank,
       player_type: {
         style: player.style,
-        species: "TODO" // TODO
+        species: "TODO", // TODO
       },
-      player_rank: player.rank
-    }
+      player_rank: player.rank,
+    },
   };
 }
 
@@ -115,7 +113,7 @@ function getTeamMembers(players: Player[]) {
 function convertTeamResult(isWin: boolean) {
   return {
     name: isWin ? "WIN!" : "LOSE…",
-    key: isWin ? "victory" : "defeat"
+    key: isWin ? "victory" : "defeat",
   };
 }
 
@@ -145,13 +143,13 @@ function convertPlayerCSV(
     "sortScore",
     "paintPoint",
     "fesGrade",
-    "fesGradeName"
+    "fesGradeName",
   ] as const;
 
   let csvResults: [string, unknown][] = [];
 
   csvResults = csvResults.concat(
-    primitiveNames.map(name => {
+    primitiveNames.map((name) => {
       const suffix =
         name === "udemaeName"
           ? name
@@ -167,7 +165,7 @@ function convertPlayerCSV(
     [`${prefix}WeaponSpecialID`, player.weapon?.special?.ID],
     [`${prefix}WeaponSpecialName`, player.weapon?.special?.name],
     [`${prefix}WeaponSubID`, player.weapon?.sub?.ID],
-    [`${prefix}WeaponSubName`, player.weapon?.sub?.name]
+    [`${prefix}WeaponSubName`, player.weapon?.sub?.name],
   ]);
 
   csvResults = csvResults.concat([
@@ -179,11 +177,11 @@ function convertPlayerCSV(
     [`${prefix}HeadBrandName`, player.headGear?.brand?.name],
     [
       `${prefix}HeadBrandFrequentSkillID`,
-      player.headGear?.brand?.frequentSkill?.ID
+      player.headGear?.brand?.frequentSkill?.ID,
     ],
     [
       `${prefix}HeadBrandFrequentSkillName`,
-      player.headGear?.brand?.frequentSkill?.name
+      player.headGear?.brand?.frequentSkill?.name,
     ],
     [`${prefix}HeadSkillID`, player.headSkills?.main?.ID],
     [`${prefix}HeadSkillName`, player.headSkills?.main?.name],
@@ -201,11 +199,11 @@ function convertPlayerCSV(
     [`${prefix}ClothesBrandName`, player.clothesGear?.brand?.name],
     [
       `${prefix}ClothesBrandFrequentSkillID`,
-      player.clothesGear?.brand?.frequentSkill?.ID
+      player.clothesGear?.brand?.frequentSkill?.ID,
     ],
     [
       `${prefix}ClothesBrandFrequentSkillName`,
-      player.clothesGear?.brand?.frequentSkill?.name
+      player.clothesGear?.brand?.frequentSkill?.name,
     ],
     [`${prefix}ClothesSkillID`, player.clothesSkills?.main?.ID],
     [`${prefix}ClothesSkillName`, player.clothesSkills?.main?.name],
@@ -223,11 +221,11 @@ function convertPlayerCSV(
     [`${prefix}ShoesBrandName`, player.shoesGear?.brand?.name],
     [
       `${prefix}ShoesBrandFrequentSkillID`,
-      player.shoesGear?.brand?.frequentSkill?.ID
+      player.shoesGear?.brand?.frequentSkill?.ID,
     ],
     [
       `${prefix}ShoesBrandFrequentSkillName`,
-      player.shoesGear?.brand?.frequentSkill?.name
+      player.shoesGear?.brand?.frequentSkill?.name,
     ],
     [`${prefix}ShoesSkillID`, player.shoesSkills?.main?.ID],
     [`${prefix}ShoesSkillName`, player.shoesSkills?.main?.name],
@@ -236,7 +234,7 @@ function convertPlayerCSV(
     [`${prefix}ShoesSub2SkillID`, player.shoesSkills?.subs[1]?.ID],
     [`${prefix}ShoesSub2SkillName`, player.shoesSkills?.subs[1]?.name],
     [`${prefix}ShoesSub3SkillID`, player.shoesSkills?.subs[2]?.ID],
-    [`${prefix}ShoesSub3SkillName`, player.shoesSkills?.subs[2]?.name]
+    [`${prefix}ShoesSub3SkillName`, player.shoesSkills?.subs[2]?.name],
   ]);
 
   return csvResults;
@@ -290,7 +288,7 @@ export function getResultCSV(result: Result) {
     ["fesMyColorB", result.fes?.myColorB ?? 0],
     ["fesOtherColorR", result.fes?.otherColorR ?? 0],
     ["fesOtherColorG", result.fes?.otherColorG ?? 0],
-    ["fesOtherColorB", result.fes?.otherColorB ?? 0]
+    ["fesOtherColorB", result.fes?.otherColorB ?? 0],
   ]);
 
   csvResults = csvResults.concat(convertPlayerCSV(result.player, "player"));
@@ -312,7 +310,7 @@ export function getResult(result: Result) {
     crown_players: null, // TODO
     game_mode: {
       name: result.game?.mode,
-      key: result.game?.modeKey
+      key: result.game?.modeKey,
     },
     my_team_result: convertTeamResult(result.win),
     other_team_result: convertTeamResult(!result.win),
@@ -330,19 +328,17 @@ export function getResult(result: Result) {
       s_plus_number: result.sPlusNumber,
       number: result.udemae,
       is_x: result.udemaeIsX,
-      is_number_reached: result.udemaeIsReached
+      is_number_reached: result.udemaeIsReached,
     },
     rule: {
       multiline_name: result.game?.rule, // TODO ガチ\nエリア みたいにする
       name: result.game?.rule,
-      key: result.game?.ruleKey
+      key: result.game?.ruleKey,
     },
     stage: convertImage(result.stage),
     type: result.game?.type,
     other_team_count: result.otherCount,
     my_team_count: result.myCount,
-    x_power: result.xPower
+    x_power: result.xPower,
   };
 }
-
-/* eslint-enable @typescript-eslint/camelcase */

@@ -1,6 +1,7 @@
 import Realm from "realm";
 
 import { Result } from "ikaWidget2";
+import { STAGES, RULES, config } from "./config";
 
 function filter(result: Result, ids: string[]): boolean {
   const myMemberIds = result.myMembers
@@ -13,14 +14,14 @@ function filter(result: Result, ids: string[]): boolean {
 }
 
 async function main(): Promise<void> {
-  const db = new Realm({ path: "./data/stats.realm" });
+  const db = new Realm({ path: config.path });
   const results = db.objects<Result>("Result");
   const result = results[results.length - 20];
-  [...new Array(3).keys()].forEach(i => {
+  [...new Array(15).keys()].forEach(i => {
     console.log(result.myMembers[i].principalID);
     console.log(result.myMembers[i].name);
   });
-  const ids = ["584fb3fbce50cc27", "c5ffec79c3607d96", "3f17872fa875a69c"];
+  const ids = config.playerIds;
   const filteredResults = results.filter(result => filter(result, ids));
 
   type Count = {
@@ -57,23 +58,9 @@ async function main(): Promise<void> {
     return prev;
   }, {});
 
-  const stages = [
-    "チョウザメ造船",
-    "タチウオパーキング",
-    "ハコフグ倉庫",
-    "Ｂバスパーク",
-    "ガンガゼ野外音楽堂",
-    "デボン海洋博物館",
-    "海女美術大学",
-    "ムツゴ楼"
-  ];
-  const rules = [
-    "ガチホコバトル",
-    "ガチエリア",
-    "ガチヤグラ",
-    "ガチアサリ",
-    "ナワバリバトル"
-  ];
+  const stages = STAGES;
+  const rules = RULES;
+
   console.log(["", ...rules].join(","));
   stages.forEach(stage => {
     const line: string[] = [stage];

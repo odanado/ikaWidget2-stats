@@ -18,13 +18,6 @@ async function main(): Promise<void> {
   const results = db.objects<Result>("Result");
 
   console.log(results.length);
-  // 直近N戦目のみかたの id を知る
-  const result = results[results.length - 10];
-  [...new Array(3).keys()].forEach((i) => {
-    console.log(result.myMembers[i].principalID);
-    console.log(result.myMembers[i].name);
-  });
-
   const ids = config.playerIds;
   const filteredResults = results.filter((result) => filter(result, ids));
 
@@ -76,7 +69,7 @@ async function main(): Promise<void> {
       const lose = stats[stage][rule].lose;
       const total = win + lose;
       const rate = total === 0 ? 0 : win / total;
-      line.push(`${win}/${total}`);
+      line.push(`${total}`);
     });
     console.log(line.join(","));
   });

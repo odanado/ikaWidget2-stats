@@ -23,7 +23,9 @@
     "test": "run-p test:*",
     "test:build": "yarn build --noEmit",
     "test:jest": "yarn jest --detectOpenHandles --forceExit",
-    "test:lint": "eslint --ext .js,.ts --ignore-path .gitignore ."
+    "test:lint": "eslint --ext .js,.ts --ignore-path .gitignore .",
+    "show-stats": "yarn ts-node src/app.ts",
+    "show-latest": "yarn ts-node src/show-latest.ts"
   },
   "dependencies": {
     "date-fns": "^2.11.1",
